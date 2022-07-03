@@ -1,0 +1,91 @@
+<jav:JavaScript xmlns:jav="http://dto.wa.ca.com/javascript">
+  <jav:name>BMRSUSPEND</jav:name>
+  <jav:script_definition name="BMRSUSPEND" language="JavaScript" runInParallel="true">var len = APPL._eventname.length;
+APPL.BMREMAILDG = getVar('BMREMAILDG', 'BMR');
+APPL.restriction =getVar('RESTRICTION', 'BMR');
+APPL.message = '';
+APPL.event='INVALID';
+APPL.eventprefix='INVALID';
+APPL.eventnm = 'INVALID';
+APPL.runme = 'false';
+APPL.action = 'SUSPEND';
+APPL.actcnt = 1;
+APPL.parm1='';
+APPL.parm2='';
+APPL.parm3='';
+APPL.parm4='';
+APPL.jobs='';
+
+function countit(a,b) {
+  if (a == null){
+		return(0);
+  }else
+  {
+    return ((a.split(b)).length);
+  }
+}
+
+if ((APPL._user1 == null) || (APPL.restriction == 'YES') || ((countit(APPL._user1,',')) > 1)) {
+    APPL.message = '';
+    APPL.runme = 'false';
+    if (APPL.restriction == 'YES') {
+        APPL.message = 'BMR Access is restricted until further notice, Please contact BatchOps for Assistance.';
+    }
+	if (APPL._user1 == null)  {
+        APPL.message = APPL.message + 'User1(event name) cannot be blank. ';
+    }else if ((countit(APPL._user1,',')) > 1) {
+		APPL.message = APPL.message + 'Please enter one event(USER1) per request. ';
+	}
+}
+else{
+	APPL.event = (((APPL._user1.toUpperCase()).replace(/\s/gm, '')).split('.'))[1];
+	APPL.eventprefix = (((APPL._user1.toUpperCase()).replace(/\s/gm, '')).split('.'))[0];
+	if ((APPL._user1.search(/\./)) == -1) {
+		APPL.message = APPL.message + 'Please enter user1(event name) with event prefix. ';
+	}else
+	{
+		if (APPL._eventname == (APPL.event.substring(0, len))) {
+			APPL.runme = 'true';
+			APPL.parm1 = ((APPL._user1.toUpperCase()).replace(/\s/gm, ''));
+			APPL.eventnm=(APPL.eventprefix)+"_"+APPL.event;
+			if ((APPL._eventprefix = 'HOLD' ) || (APPL._eventprefix = 'RELEASE') || (APPL._eventprefix = 'SUSPEND') || (APPL._eventprefix = 'RESUME') ){
+				APPL.action  = ((APPL._eventprefix).split("_"))[0];
+				APPL.parm2 = ((APPL._eventprefix).split("_"))[0];
+			}
+			else{
+				APPL.message = APPL.message + 'BMR event set-up is invalid, please contact PT-Batch team. ';
+				APPL.runme = 'true';
+			}
+			if (APPL._user2 != null){
+				if (isNaN(APPL._user2)){
+					APPL.message = APPL.message + 'Suspend/Resume count should be numeric. ';
+					APPL.runme = 'false';
+				}
+				else{
+					APPL.actcnt = parseInt(APPL._user2);
+					if (APPL.actcnt > 5){
+						APPL.message = APPL.message + '  *****Please limit event '+ APPL.action+ ' count(Parameter2) less than 5. ********     ';
+						APPL.runme = 'false';
+					}
+				}
+			}
+			else{
+				APPL.actcnt=1;
+			}
+			if ((APPL._user3 != null) &amp;&amp; (APPL.runme == 'true')) {
+				APPL.message = APPL.message + 'Event ' +APPL._user1+ ' '+APPL.action+' request submitted by  '+ APPL._truser +'.   ';
+				APPL.message = APPL.message + '****Reason: '+ APPL._user3+".   ****";
+			}
+			else{
+				APPL.message = APPL.message + '  *****Please submit request with reason(user3). ********     ';
+				APPL.runme = 'false';
+			}
+			APPL.parm4=APPL._truser;
+		}
+		else{
+			APPL.message = 'User ' + APPL._truser + ' is not authorized to perform action ' + APPL.action + ' on event  ' + APPL._user1+'.';
+			APPL.runme = 'false';
+		}			
+	}
+}</jav:script_definition>
+</jav:JavaScript>

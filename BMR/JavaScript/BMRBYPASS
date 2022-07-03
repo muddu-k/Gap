@@ -1,0 +1,139 @@
+<jav:JavaScript xmlns:jav="http://dto.wa.ca.com/javascript">
+  <jav:name>BMRBYPASS</jav:name>
+  <jav:script_definition name="BMRBYPASS" language="JavaScript" runInParallel="true">var len = APPL._eventname.length;
+APPL.BMREMAILDG = getVar('BMREMAILDG', 'BMR');
+APPL.restriction =getVar('RESTRICTION', 'BMR');
+APPL.message = 'None';
+APPL.job = 'INVALID';
+APPL.app = 'INVALID';
+APPL.appnm = 'INVALID';
+APPL.gen = 'INVALID';
+APPL.jobnm = 'INVALID';
+APPL.runme = 'false';
+APPL.action = 'BYPASS';
+APPL.act = 'BYPASS';
+APPL.jobcnt = 0;
+APPL.appcnt = 0;
+APPL.joblist = null;
+function countit(x) {
+  if (x == null){
+		return(0);
+  }else{
+    return ((x.split(',')).length);
+  }
+}
+if ((APPL._user1 == null) || (APPL._user2 == null) || (APPL._user3 == null) || (APPL._user3 == 0) || (APPL.restriction == 'YES')||  (isNaN(APPL._user3)) || ((APPL._user2.search(/\./)) > -1)  || ((APPL._user2.search(/\*/)) > -1) || ((APPL._user1.search(/\*/)) > -1)) 
+{
+    APPL.message = '';
+    if (APPL.restriction == 'YES')
+	{
+        APPL.message = APPL.message + ' BMR Access is restricted until further notice, Please contact BatchOps for Assistance.  ';
+    }
+    if (isNaN(APPL._user3)) 
+	{
+        APPL.message = APPL.message + ' User Error: Parameter3(Generation number) should be numeric. ';
+    }    
+    if (APPL._user3 == 0) 
+	{
+        APPL.message = APPL.message + ' User Error: Parameter3(Generation number) cannot be zero. ';
+    }
+    if ((APPL._user2.search(/\./)) > -1) 
+	{
+        APPL.message = APPL.message + ' User Error: Invalid application name(Parameter2) value. Please verify.';
+    }	
+    if ((APPL._user2.search(/\*/)) > -1) 
+	{
+        APPL.message = APPL.message + ' Please do not use wild character '*' in application name. Please provide complete application name';
+    }	
+    if ((APPL._user1.search(/\*/)) > -1) 
+	{
+        APPL.message = APPL.message + ' Please do not use wild character '*' in application name. Please provide complete job names';
+    }	
+    if ((APPL._user1 == null) || (APPL._user2 == null) || (APPL._user3 == null)) 
+	{
+        APPL.message = APPL.message + ' Parameter1(jobname) or Parameter2(application name )  or Parameter3(Generation number )cannot be blank.';
+    }
+} else
+ {
+    APPL.appnm = ((APPL._user2.toUpperCase()).replace(/\s/gm, ''));
+    if (APPL._eventname == (APPL.appnm.substring(0, len))) 
+	{
+        APPL.job = (APPL._user1.toUpperCase()).replace(/\s|(,$)/gm, '');
+        APPL.gen = APPL._user3.toUpperCase();
+        APPL.app = ((APPL._user2.toUpperCase()).replace(/\s/gm, '')) + '.' + APPL._user3;
+        //APPL.joblist = APPL.job.split(',');
+        APPL.jobcnt = countit(APPL.job);
+		APPL.appcnt =countit(APPL.appnm);
+		if (APPL.appcnt == 1) 
+		{
+			APPL.runme = 'true';
+            if (APPL.jobcnt == 1) 
+			{
+                 APPL.jobnm = APPL.appnm + '_' + APPL.gen + '_' + (APPL.job.replace(".", "_"));
+            } else {
+                 APPL.jobnm = APPL.appnm + '_' + APPL.gen + '_' + 'MULTIPLEJOBS' + '_' + APPL.jobcnt;;
+			}
+			if (APPL._user4 == null)
+			{
+				APPL.act = 'BYPASS';
+			}else
+			{
+				APPL.act = APPL._user4.toUpperCase();
+			}
+			switch (APPL.act) {
+				case 'BYPASS':
+					APPL.action = 'BYPASS';
+					if (APPL.job == 'ALL') {
+							APPL.message = APPL.action + ' for All Jobs not allowed, Please provide job names with the qualifier.';
+							APPL.runme = 'false';
+					} else {														
+							APPL.action = 'BYPASS';
+							APPL.message = 'User ' + APPL._truser + ' Submitted   ' + APPL.action + ' request for job/jobs  ' + APPL.job + '(' + APPL.app + ')';
+					}
+					break;
+				case 'UNBYPASS':
+					if (APPL.job == 'ALL') {
+							APPL.message = APPL.action + ' for All Jobs not allowed, Please provide job names with the qualifier.';
+							APPL.runme = 'false';
+					} else {															
+						APPL.action = 'UNBYPASS';
+						APPL.message = 'User ' + APPL._truser + ' Submitted  ' + APPL.action + ' request for job/jobs  ' + APPL.job + '(' + APPL.app + ')';
+					}
+					break;
+                case 'REQUEST':
+                    APPL.action = 'REQUEST';
+					if (APPL.job == 'ALL') 
+						{
+							APPL.message = APPL.action + ' for All Jobs not allowed, Please provide job names with the qualifier.';
+							APPL.runme = 'false';
+						} else {
+							APPL.message = 'User ' + APPL._truser + ' Submitted  ' + APPL.action + ' request for job/jobs  ' + APPL.job + '(' + APPL.app + ')';
+						}
+					break;
+                case 'UNREQUEST':
+                    APPL.action = 'UNREQUEST';
+					if (APPL.job == 'ALL') 
+						{
+							APPL.message = APPL.action + ' for All Jobs not allowed, Please provide job names with the qualifier.';
+							APPL.runme = 'false';
+						} else {
+							APPL.message = 'User ' + APPL._truser + ' Submitted  ' + APPL.action + ' request for job/jobs  ' + APPL.job + '(' + APPL.app + ')';
+						}
+					break;
+				default:
+					APPL.message = ' User Error: Parameter 4 parameter need to be UNBYPASS,REQUEST,UNREQUEST or leave it blank for BYPASS ';
+					APPL.runme = 'false';
+			}
+            APPL.eventnm = APPL.action + '.' + APPL.action;
+		}else
+		{
+                APPL.message = ' Please input( Parameter2) one application per request. ';
+                APPL.runme = 'false';
+        }    
+    }else 
+	{
+        APPL.message = 'User ' + APPL._truser + ' is not authorized to perform action ' + APPL.action + ' on application  ' + APPL._user2;
+        APPL.runme = 'false';
+    }
+}</jav:script_definition>
+</jav:JavaScript>

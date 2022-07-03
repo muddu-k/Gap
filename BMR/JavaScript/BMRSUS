@@ -1,0 +1,11 @@
+<jav:JavaScript xmlns:jav="http://dto.wa.ca.com/javascript">
+  <jav:name>BMRSUS</jav:name>
+  <jav:script_definition name="BMRSUS" language="JavaScript" runInParallel="true">if (APPL.runme) {
+	var i = 0
+	while (APPL.actcnt > i){
+		i = i +1;
+		APPL.parm3 = i;
+		execTrigger('SUSPEND_RESUME.SUSPEND_RESUME','ADD','','NOHOLD','%(APPL.parm1)','%(APPL.parm2)','%(APPL.parm3)','%(APPL.parm4)','');
+	}
+}</jav:script_definition>
+</jav:JavaScript>

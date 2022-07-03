@@ -1,0 +1,15 @@
+<jav:JavaScript xmlns:jav="http://dto.wa.ca.com/javascript">
+  <jav:name>BMRACTION</jav:name>
+  <jav:script_definition name="BMRACTION" language="JavaScript" runInParallel="true"><![CDATA[if ((APPL._user1 != null) && (APPL._user2 != null) && (APPL._user3 != null)) {
+    WOB.job = APPL.job;
+    WOB.joblist = WOB.job.split(',');
+    WOB.jobcnt = WOB.joblist.length;
+    WOB.jobnm = '';
+    for (var i = 0; i < WOB.jobcnt; i++) {
+        WOB.jobnm = WOB.joblist[i];
+		if ((WOB.jobnm != null) && (WOB.jobnm != "")) {
+			execTrigger('%(APPL.eventnm)', 'ADD', '', 'NOHOLD', '%(WOB.jobnm)', '%(APPL.app)', '%(APPL._truser)', '%(APPL.action)', '');
+		}
+    }
+}]]></jav:script_definition>
+</jav:JavaScript>

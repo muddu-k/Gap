@@ -1,0 +1,7 @@
+<jav:JavaScript xmlns:jav="http://dto.wa.ca.com/javascript">
+  <jav:name>BMRTRIG</jav:name>
+  <jav:script_definition name="BMRTRIG" language="JavaScript" runInParallel="true">//
+if (APPL.runme) {
+	execTrigger('%(APPL.eventprefix).%(APPL.event)','%(APPL.type)','%(APPL.date)','HOLD','%(APPL.parm1)','%(APPL.parm2)','%(APPL.parm3)','%(APPL.parm4)','%(APPL.jobs)');
+}</jav:script_definition>
+</jav:JavaScript>
