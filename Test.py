@@ -1,4 +1,4 @@
-import decimal
+""" import decimal
 
 x = {1, 2, 34, 4}
 y = {2, 3, 67, 8, 4}
@@ -17,3 +17,17 @@ print(z1)
 
 print('a'+'b'
 +'c')
+ """
+def validatename():
+    for i in prefixlist:
+        print(i)
+
+def validate():
+    validatename()
+
+def main():
+    global prefixlist
+    prefixlist = ['1','2','3']
+    validate()
+main()
+

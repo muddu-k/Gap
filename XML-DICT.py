@@ -5,4 +5,5 @@ with open('SAMPLE.xml') as fd:
     doc = xmltodict.parse(fd.read())
     # print(doc)
     pp.pprint(doc)
+
     

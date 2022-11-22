@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<app:appl xmlns:app="http://dto.wa.ca.com/application" name="SAMPLE">
+<app:appl xmlns:app="http://dto.wa.ca.com/application" name="SAMPLE_NOSCHED">
   <app:version>12.0</app:version>
   <app:comment/>
   <app:applopts>
@@ -13,16 +13,10 @@
     <app:reason_required>false</app:reason_required>
   </app:applopts>
   <app:defaults>
-    <app:schedules>
-      <app:run>
-        <app:schedule>DAILY</app:schedule>
-      </app:run>
-    </app:schedules>
+    <app:schedules/>
     <app:tag/>
-    <app:rununit>
-      <app:agent>APPAGENT</app:agent>
-    </app:rununit>
-  </app:defaults>
+    
+  <app:rununit><app:agent>%VAR('SYSAGENT','AGENT'))</app:agent></app:rununit></app:defaults>
   <app:script_lib>
     <app:script_definition name="LOCALJS1" language="JavaScript" runInParallel="true">//Local Javscript-1
 APPL.restriction = getVar('RESTRICTION', 'BMR');</app:script_definition>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<app:appl xmlns:app="http://dto.wa.ca.com/application" name="SAMPLE">
+<app:appl xmlns:app="http://dto.wa.ca.com/application" name="SAMPLE_NODEFAULT">
   <app:version>12.0</app:version>
   <app:comment/>
   <app:applopts>
@@ -13,15 +13,9 @@
     <app:reason_required>false</app:reason_required>
   </app:applopts>
   <app:defaults>
-    <app:schedules>
-      <app:run>
-        <app:schedule>DAILY</app:schedule>
-      </app:run>
-    </app:schedules>
+    <app:schedules/>
     <app:tag/>
-    <app:rununit>
-      <app:agent>APPAGENT</app:agent>
-    </app:rununit>
+    
   </app:defaults>
   <app:script_lib>
     <app:script_definition name="LOCALJS1" language="JavaScript" runInParallel="true">//Local Javscript-1
@@ -97,70 +91,22 @@ APPL.BMREMAILDG = getVar('BMREMAILDG', 'BMR');
     <app:resourcedependencies>
       <app:resource_absorb>FALSE</app:resource_absorb>
       <app:resource_acquiring_priority>0</app:resource_acquiring_priority>
-      <app:resources>
-        <app:resource>
-          <app:resource_reference_name>RES0</app:resource_reference_name>
-          <app:resource_acquiring_quantity>1</app:resource_acquiring_quantity>
-        </app:resource>
-        <app:resource>
-          <app:resource_reference_name>RES1</app:resource_reference_name>
-          <app:resource_acquiring_quantity>999</app:resource_acquiring_quantity>
-        </app:resource>
-      </app:resources>
-    </app:resourcedependencies>
+      
+    <app:resources><app:resource><app:resource_reference_name>RES0</app:resource_reference_name><app:resource_acquiring_quantity>1</app:resource_acquiring_quantity></app:resource><app:resource><app:resource_reference_name>RES1</app:resource_reference_name><app:resource_acquiring_quantity>999</app:resource_acquiring_quantity></app:resource></app:resources></app:resourcedependencies>
     <app:notifynodefaults>false</app:notifynodefaults>
-    <app:notifylist>
-      <app:notify>
-        <app:returncode/>
-        <app:monitor_states>
-          <app:monitor_state>FAILED</app:monitor_state>
-        </app:monitor_states>
-        <app:mailaddresslist>
-          <app:mailaddress>sample@gap.com</app:mailaddress>
-        </app:mailaddresslist>
-        <app:email_subject/>
-        <app:emailtext/>
-        <app:email_text_flag>APPEND_TO_GLOBAL</app:email_text_flag>
-        <app:attachspoolfile>N</app:attachspoolfile>
-      </app:notify>
-    </app:notifylist>
-    <app:alert_notifynodefaults>false</app:alert_notifynodefaults>
-    <app:alert_notifylist>
-      <app:alert_notify>
-        <app:returncode/>
-        <app:monitor_states>
-          <app:monitor_state>SUBERROR</app:monitor_state>
-        </app:monitor_states>
-        <app:alert>GON1</app:alert>
-      </app:alert_notify>
-    </app:alert_notifylist>
-    <app:snmp_notifynodefaults>false</app:snmp_notifynodefaults>
-    <app:snmp_notifylist>
-      <app:snmp_notify>
-        <app:returncode/>
-        <app:monitor_states>
-          <app:monitor_state>FAILED</app:monitor_state>
-        </app:monitor_states>
-        <app:snmpagent>AZWED10PRDDFS</app:snmpagent>
-        <app:message>Sample SMTP</app:message>
-      </app:snmp_notify>
-    </app:snmp_notifylist>
-    <app:states>
-      <app:ready>
-        <app:on_enter>
-          <app:script_definition name="" language="JavaScript" runInParallel="true">//Event runtime JS
-execTrigger('%(APPL.eventnm)', 'ADD', '', 'NOHOLD', '%(WOB.jobnm)', '%(APPL.app)', '%(APPL._truser)', '%(APPL.action)', '');</app:script_definition>
-        </app:on_enter>
-      </app:ready>
-    </app:states>
-    <app:hold>false</app:hold>
+    
+    <app:notifylist><app:notify><app:returncode/><app:monitor_states><app:monitor_state>FAILED</app:monitor_state></app:monitor_states><app:mailaddresslist><app:mailaddress>sample@gap.com</app:mailaddress></app:mailaddresslist><app:email_subject/><app:emailtext/><app:email_text_flag>APPEND_TO_GLOBAL</app:email_text_flag><app:attachspoolfile>N</app:attachspoolfile></app:notify></app:notifylist><app:alert_notifynodefaults>false</app:alert_notifynodefaults>
+    
+    <app:alert_notifylist><app:alert_notify><app:returncode/><app:monitor_states><app:monitor_state>SUBERROR</app:monitor_state></app:monitor_states><app:alert>GON1</app:alert></app:alert_notify></app:alert_notifylist><app:snmp_notifynodefaults>false</app:snmp_notifynodefaults>
+    
+    
+    <app:snmp_notifylist><app:snmp_notify><app:returncode/><app:monitor_states><app:monitor_state>FAILED</app:monitor_state></app:monitor_states><app:snmpagent>AZWED10PRDDFS</app:snmpagent><app:message>Sample SMTP</app:message></app:snmp_notify></app:snmp_notifylist><app:states><app:ready><app:on_enter><app:script_definition name="" language="JavaScript" runInParallel="true">//Event runtime JS
+execTrigger('%(APPL.eventnm)', 'ADD', '', 'NOHOLD', '%(WOB.jobnm)', '%(APPL.app)', '%(APPL._truser)', '%(APPL.action)', '');</app:script_definition></app:on_enter></app:ready></app:states><app:hold>false</app:hold>
     <app:request>false</app:request>
     <app:conditional>false</app:conditional>
-    <app:on_load>
-      <app:script_definition name="" language="JavaScript" runInParallel="true">//Event triiger JS
-execTrigger('%(APPL.eventnm)', 'ADD', '', 'NOHOLD', '%(WOB.jobnm)', '%(APPL.app)', '%(APPL._truser)', '%(APPL.action)', '');</app:script_definition>
-    </app:on_load>
-    <app:criticaljob>false</app:criticaljob>
+    
+    <app:on_load><app:script_definition name="" language="JavaScript" runInParallel="true">//Event triiger JS
+execTrigger('%(APPL.eventnm)', 'ADD', '', 'NOHOLD', '%(WOB.jobnm)', '%(APPL.app)', '%(APPL._truser)', '%(APPL.action)', '');</app:script_definition></app:on_load><app:criticaljob>false</app:criticaljob>
     <app:job_ancestor_wait_default_ignore>true</app:job_ancestor_wait_default_ignore>
     <app:retry>
       <app:retry_count>0</app:retry_count>
@@ -171,7 +117,7 @@ execTrigger('%(APPL.eventnm)', 'ADD', '', 'NOHOLD', '%(WOB.jobnm)', '%(APPL.app)
     </app:retry>
     <app:subappl>SAMPLESUB</app:subappl>
     <app:subappl_wait>false</app:subappl_wait>
-    <app:userid>sampleuser</app:userid>
+    <app:agent>AGENT</app:agent><app:userid>sampleuser</app:userid>
     <app:args>sample arg1 ag2</app:args>
     <app:cmdname>samplepath/sample.sh</app:cmdname>
     <app:isscript>true</app:isscript>

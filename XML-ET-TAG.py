@@ -4,8 +4,8 @@ import os
 # fileline = 'JOBNAME,AGENT,SUBAPPLICATION,'
 # #outfile = open('out.txt', 'w')
 # path = input("Enter the path of your file: ")
-path = "C:\\Users\\mu6g8mn\\Documents\\1SCEDULING\\Extract"
-os.chdir(path)
+#path = "C:\\Users\\mu6g8mn\\Documents\\1SCEDULING\\Extract"
+#os.chdir(path)
 # appnm = input("Enter XML name: ")
 appnm = 'SAMPLE.xml'
 ns = {'app': 'http://dto.wa.ca.com/application'}
